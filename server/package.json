@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "apollo-server-express": "^2.4.8",
+    "bcrypt": "^3.0.6",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "express-session": "^1.16.1",
+    "graphql": "^14.2.1",
+    "mongoose": "^5.5.2",
+    "typescript": "^3.4.3"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^3.0.0",
+    "@types/express": "^4.16.1",
+    "@types/express-session": "^1.15.12",
+    "@types/graphql": "^14.2.0",
+    "@types/mongoose": "^5.3.26",
+    "ts-node-dev": "^1.0.0-pre.32"
+  },
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "descripton": "GQL serer got stripe payments",
+  "scripts": {
+    "dev": "ts-node-dev --respawn src/index.ts"
+  }
+}
