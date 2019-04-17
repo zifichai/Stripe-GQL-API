@@ -21,7 +21,7 @@ export default class LoginView extends PureComponent {
       <form>
         <input type="text" placeholder="email" name="email" value={email} onChange={this.handleChange} />
         <input type="password" placeholder="password" name="password" value={password} onChange={this.handleChange} />
-
+        <button onClick={() => console.log('submitted')}>Login</button>
       </form>
     )
   }
