@@ -5,7 +5,6 @@ import * as session from 'express-session';
 import { resolvers } from './schema/resolves';
 import { typeDefs } from './schema/typeDefs';
 
-
 const startServer = async () => {
   let con = await mongoose.connect('mongodb://localhost:27017/stripe-example', { useNewUrlParser: true });
   const apolloSever = new ApolloServer({
@@ -24,7 +23,12 @@ const startServer = async () => {
     })
   );
 
-  apolloSever.applyMiddleware({ app });
+  apolloSever.applyMiddleware({
+    app, cors: {
+      credentials: true,
+      origin: 'http://localhost:3000'
+    }
+  });
 
   const port = process.env.PORT || 4000;
   if (con) app.listen(port, () =>
