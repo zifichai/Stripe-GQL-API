@@ -2,6 +2,7 @@ import * as bcrypt from 'bcrypt';
 import { IResolvers } from "graphql-tools";
 import User from "../entity/User";
 import { User as UserType } from "../types";
+import { stripe } from '../stripe';
 
 export const resolvers: IResolvers = {
   User: {
@@ -49,6 +50,31 @@ export const resolvers: IResolvers = {
       } catch (error) {
         throw error;
       }
+    },
+    createSubscripton: async (_, { source }, { req }) => {
+      if (!req.session || !req.session.userId) {
+        throw new Error('Not authenticated')
+      }
+
+      console.log(req);
+
+      const user = await User.findById(req.session.userId);
+
+      if (!user) throw new Error()
+
+      const customer = await stripe.customers.create({
+        email: user.email,
+        source: source,
+        plan: process.env.STRIPE_APPLE_PLAN
+      });
+
+      user.stripeId = customer.id;
+      user.typeOfUser = 'paid';
+
+      await user.save();
+
+
+      return user;
     }
   }
 }
