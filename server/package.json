@@ -1,12 +1,15 @@
 {
   "dependencies": {
+    "@types/stripe": "^6.25.11",
     "apollo-server-express": "^2.4.8",
     "bcrypt": "^3.0.6",
     "cors": "^2.8.5",
+    "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "express-session": "^1.16.1",
     "graphql": "^14.2.1",
     "mongoose": "^5.5.2",
+    "stripe": "^6.29.0",
     "typescript": "^3.4.3"
   },
   "devDependencies": {
