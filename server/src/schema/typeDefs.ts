@@ -15,5 +15,6 @@ export const typeDefs = gql`
   type Mutation {
     register(email: String!, password: String): Boolean!
     login(email: String!, password: String): User
+    createSubscripton(source: String!): User!
   }
 `;
