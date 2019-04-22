@@ -51,12 +51,10 @@ export const resolvers: IResolvers = {
         throw error;
       }
     },
-    createSubscripton: async (_, { source }, { req }) => {
+    createSubscripton: async (_, { source, ccLast4 }, { req }) => {
       if (!req.session || !req.session.userId) {
         throw new Error('Not authenticated')
       }
-
-      console.log(req);
 
       const user = await User.findById(req.session.userId);
 
@@ -70,11 +68,30 @@ export const resolvers: IResolvers = {
 
       user.stripeId = customer.id;
       user.typeOfUser = 'paid';
+      user.ccLast4 = ccLast4;
 
       await user.save();
 
 
       return user;
+    },
+    updateCard: async (_, { source, ccLast4 }, { req }) => {
+      if (!req.session || !req.session.userId) {
+        throw new Error('Not authenticated')
+      }
+
+      const user = await User.findById(req.session.userId);
+
+      if (!user || !user.stripeId || user.typeOfUser === 'paid') throw new Error();
+
+      await stripe.customers.update(user.stripeId, { source });
+
+      user.ccLast4 = ccLast4;
+      await user.save();
+
+
+      return user;
+
     }
   }
 }
