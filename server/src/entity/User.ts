@@ -5,13 +5,15 @@ export interface IUser extends mongoose.Document {
   password: string;
   stripeId: string;
   typeOfUser: string;
+  ccLast4: string;
 }
 
 export const UserSchema: mongoose.Schema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   stripeId: { type: String },
-  typeOfUser: { type: String, default: 'free-trial' }
+  typeOfUser: { type: String, default: 'free-trial' },
+  ccLast4: { type: String }
 
 }, { timestamps: true });
 
