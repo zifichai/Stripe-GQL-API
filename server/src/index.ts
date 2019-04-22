@@ -5,6 +5,7 @@ import * as mongoose from 'mongoose';
 import * as session from 'express-session';
 import { resolvers } from './schema/resolves';
 import { typeDefs } from './schema/typeDefs';
+
 const startServer = async () => {
   let con = await mongoose.connect('mongodb://localhost:27017/stripe-example', { useNewUrlParser: true });
   const apolloSever = new ApolloServer({
