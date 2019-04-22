@@ -4,16 +4,16 @@ import { gql } from 'apollo-boost';
 import { LoginMutation, LoginMutationVariables } from '../../schemaTypes';
 import { RouteComponentProps } from 'react-router';
 import { meQuery } from '../../graphql/queries/me';
+import { userFragment } from '../../graphql/fragements/UserFragment';
 
 const loginMutation = gql`
   mutation LoginMutation($email: String!, $password:String!) {
     login(email: $email, password: $password) {
-      _id
-      email
-      createdAt
-      typeOfUser
+      ...UserInfo
     }
   }
+
+  ${userFragment}
 `;
 
 export default class LoginView extends PureComponent<RouteComponentProps<{}>> {
