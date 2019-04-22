@@ -3,6 +3,7 @@ import { Mutation } from 'react-apollo';
 import { gql } from 'apollo-boost';
 import { LoginMutation, LoginMutationVariables } from '../../schemaTypes';
 import { RouteComponentProps } from 'react-router';
+import { meQuery } from '../../graphql/queries/me';
 
 const loginMutation = gql`
   mutation LoginMutation($email: String!, $password:String!) {
@@ -10,6 +11,7 @@ const loginMutation = gql`
       _id
       email
       createdAt
+      typeOfUser
     }
   }
 `;
@@ -36,8 +38,19 @@ export default class LoginView extends PureComponent<RouteComponentProps<{}>> {
   render() {
     const { email, password } = this.state;
     return (
-      <Mutation<LoginMutation, LoginMutationVariables> mutation={loginMutation}>
-        {mutate => (
+      <Mutation<LoginMutation, LoginMutationVariables>
+        update={(cache, { data }) => {
+
+          if (!data || !data.login) return;
+
+          cache.writeQuery({
+            query: meQuery,
+            data: { me: data.login },
+          });
+        }}
+
+        mutation={loginMutation}>
+        {(mutate, { client }) => (
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
             <div>
               <input type="text" placeholder="email" name="email" value={email} onChange={this.handleChange} />
@@ -47,9 +60,13 @@ export default class LoginView extends PureComponent<RouteComponentProps<{}>> {
             </div>
             <div>
               <button onClick={async () => {
+                //Remove any old data in cache before user logs in 
+                await client.resetStore();
+
+
                 const response = await mutate({ variables: { email, password } })
                 console.log(response);
-                this.props.history.push('/me');
+                this.props.history.push('/account');
               }}>Login</button>
             </div>
           </div>

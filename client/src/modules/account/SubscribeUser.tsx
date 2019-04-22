@@ -10,6 +10,7 @@ const createSubscriptionMutation = gql`
     createSubscripton(source: $source) {
       _id, 
       email
+      typeOfUser
     }
   }
 `;

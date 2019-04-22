@@ -2,20 +2,35 @@ import React, { PureComponent } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import LoginView from './modules/user/LoginView';
 import RegisterView from './modules/user/RegisterView';
-import MeView from './modules/user/MeView';
-import SubscribeUser from './modules/account/SubscribeUser';
+import Account from './modules/account/Account';
+import PaidUsers from './modules/account/PaidUsers';
+import Header from './modules/shared/Headers';
 
 export default class Routes extends PureComponent {
   render() {
     return (
       <BrowserRouter>
-        <Switch>
-          <Route path="/login" component={LoginView} />
-          <Route path="/register" component={RegisterView} />
-          <Route path="/me" component={MeView} />
-          <Route path="/subscription" component={SubscribeUser} />
+        <div>
+          <Switch>
+            {/* Without header */}
+            <Route path="/login" component={LoginView} />
+            <Route
+              path="/"
+              render={() => (
+                // With header
+                <React.Fragment>
+                  <Header />
+                  <div>
+                    <Route path="/" exact={true} component={() => <div>Homepage</div>} />
+                    <Route path="/register" component={RegisterView} />
+                    <Route path="/account" component={Account} />
+                    <Route path="/paid-users" component={PaidUsers} />
+                  </div>
+                </React.Fragment>
 
-        </Switch>
+              )} />
+          </Switch>
+        </div>
       </BrowserRouter>
     )
   }
