@@ -11,6 +11,7 @@ export interface MeQuery_me {
   _id: string;
   email: string;
   typeOfUser: string;
+  ccLast4: string | null;
 }
 
 export interface MeQuery {
@@ -29,6 +30,8 @@ export interface CreateSubscriptionMutation_createSubscripton {
   __typename: "User";
   _id: string;
   email: string;
+  typeOfUser: string;
+  ccLast4: string | null;
 }
 
 export interface CreateSubscriptionMutation {
@@ -37,6 +40,32 @@ export interface CreateSubscriptionMutation {
 
 export interface CreateSubscriptionMutationVariables {
   source: string;
+  ccLast4: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: UpdateCardMutation
+// ====================================================
+
+export interface UpdateCardMutation_createSubscripton {
+  __typename: "User";
+  _id: string;
+  email: string;
+  typeOfUser: string;
+  ccLast4: string | null;
+}
+
+export interface UpdateCardMutation {
+  createSubscripton: UpdateCardMutation_createSubscripton;
+}
+
+export interface UpdateCardMutationVariables {
+  source: string;
+  ccLast4: string;
 }
 
 /* tslint:disable */
@@ -51,7 +80,8 @@ export interface LoginMutation_login {
   __typename: "User";
   _id: string;
   email: string;
-  createdAt: string;
+  typeOfUser: string;
+  ccLast4: string | null;
 }
 
 export interface LoginMutation {
@@ -78,6 +108,22 @@ export interface RegisterMutation {
 export interface RegisterMutationVariables {
   email: string;
   password: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL fragment: UserInfo
+// ====================================================
+
+export interface UserInfo {
+  __typename: "User";
+  _id: string;
+  email: string;
+  typeOfUser: string;
+  ccLast4: string | null;
 }
 
 /* tslint:disable */
