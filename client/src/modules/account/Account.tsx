@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react'
 import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
-import { MeQuery } from '../../schemaTypes';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import SubscrbeUser from './SubscribeUser';
 import { meQuery } from '../../graphql/queries/me';
+import { MeQuery } from "../../schemaTypes";
+import UpdateCard from './UpdateCard';
 
 
 export default class Account extends PureComponent {
@@ -25,7 +25,13 @@ export default class Account extends PureComponent {
             return <SubscrbeUser />
           }
 
-          return <Redirect to="/paid-users" />;
+          return (
+            <div>
+              {console.log(data.me)}
+              {data.me.ccLast4}
+              <UpdateCard />
+            </div>
+          );
 
         }}
       </Query>
